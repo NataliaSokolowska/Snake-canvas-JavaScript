@@ -59,6 +59,7 @@ function draw() {
     if (direction == "down") snakeY += box;
 
     //direction head snake during eat apple
+
     if (snakeX == food.x && snakeY == food.y) {
         score++;
         scoreSpan.textContent = score;
@@ -79,6 +80,7 @@ function draw() {
         dead.play();
         endGame();
     }
+
     snake.unshift(newHead);
 }
 
@@ -200,6 +202,7 @@ function welcomeGame() {
         x: 9 * box,
         y: 10 * box
     }
+    snake.length = 1;
 }
 
 function endGame() {
