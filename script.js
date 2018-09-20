@@ -169,7 +169,7 @@ function initGame() {
     gamePaused = false;
     gameInterval = window.setInterval(function () {
         draw();
-    }, 20);
+    }, 200);
 }
 
 function welcomeGame() {
