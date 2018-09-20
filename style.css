@@ -1,0 +1,60 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.name-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: content-between;
+    align-items: center;
+    font-size: 1.6rem;
+    letter-spacing: 0.5rem;
+}
+
+.score-span {
+    font-size: 2rem;
+    color: #84b71c;
+    font-weight: bold;
+}
+
+.game-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+}
+
+.game-over {
+    opacity: 0;
+    transition: .5s;
+    filter: blur(20px);
+    transform: scale(.5);
+    background-color: red;
+    position: fixed;
+}
+
+.game-over.active {
+    display: flex;
+    justify-content: center;
+    opacity: 1;
+    z-index: 1;
+    filter: blur(0);
+    transform: scale(1);
+}
+
+button {
+    width: 200px;
+    height: 80px;
+    font-size: 2rem;
+    color: #ffffff;
+    background-color: #84b71c;
+    letter-spacing: 5px;
+}
+
+.try-again {
+    position: absolute;
+    top: 45%;
+    left: calc(50% - 80px);
+    z-index: 1;
+}
