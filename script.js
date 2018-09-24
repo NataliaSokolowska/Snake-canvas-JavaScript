@@ -9,8 +9,8 @@ const ch = canvas.height;
 
 const box = 32;
 
-//let appleImg = new Image();
-//appleImg.src = 'https://zapodaj.net/images/992de5e957a53.png';
+let appleImg = new Image();
+appleImg.src = 'https://zapodaj.net/images/992de5e957a53.png';
 
 const dead = new Audio();
 const eat = new Audio();
@@ -44,7 +44,7 @@ function draw() {
 
     drawGround();
 
-    ctx.drawImage(document.getElementById('appleImage'), food.x, food.y, box, box);
+    ctx.drawImage(appleImg, food.x, food.y, box, box);
 
     drawSnake();
 
