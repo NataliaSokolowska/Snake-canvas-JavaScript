@@ -9,8 +9,8 @@ const ch = canvas.height;
 
 const box = 32;
 
-let appleImg = new Image();
-appleImg.src = 'https://cdn.pixabay.com/photo/2012/04/18/00/30/apple-36282_1280.png';
+//let appleImg = new Image();
+//appleImg.src = 'https://zapodaj.net/images/992de5e957a53.png';
 
 const dead = new Audio();
 const eat = new Audio();
@@ -44,7 +44,7 @@ function draw() {
 
     drawGround();
 
-    ctx.drawImage(appleImg, food.x, food.y, box, box);
+    ctx.drawImage(document.getElementById('appleImage'), food.x, food.y, box, box);
 
     drawSnake();
 
@@ -113,6 +113,7 @@ function drawSnake() {
     }
 }
 
+
 function collision(head, array) {
     for (let i = 0; i < array.length; i++) {
         if (head.x == array[i].x && head.y == array[i].y) {
@@ -168,10 +169,16 @@ function pauseGame() {
 }
 
 function initGame() {
-    gamePaused = false;
-    gameInterval = window.setInterval(function () {
-        draw();
-    }, 200);
+    if (!gameInProgress) {
+        gamePaused = false;
+        gameInProgress = true;
+        gameInterval = window.setInterval(function () {
+            draw();
+        }, 200);
+    } else {
+        return;
+    }
+
 }
 
 function welcomeGame() {
@@ -203,9 +210,11 @@ function welcomeGame() {
         y: 10 * box
     }
     snake.length = 1;
+
 }
 
 function endGame() {
+    gameInProgress = false;
     setTitle('Game Over');
     resetScore();
     drawGround();
@@ -213,41 +222,43 @@ function endGame() {
     ctx.fillRect(0, 0, cw, ch);
     ctx.fillStyle = "#84b71c";
     ctx.font = "40px Georgia";
-    ctx.fillText("End game", cw / 2 - 80, ch / 2 - 100);
+    ctx.fillText("End game", cw / 2 - 80, ch / 2 - 20);
     endMusic.play();
     showGameOverBtn();
     againBtn.textContent = 'Try again';
     clearInterval(gameInterval);
+
 }
 
 document.addEventListener('keydown', function (e) {
     switch (e.keyCode) {
         case 13:
             initGame();
-            console.log('click enter');
+            //console.log('click enter');
             break;
         case 37:
             if (direction != "right")
                 direction = "left"
-            console.log('left');
+            //console.log('left');
             break;
         case 38:
             if (direction != "down")
                 direction = "up"
-            console.log('up');
+            //console.log('up');
             break;
         case 39:
             if (direction != "left")
                 direction = "right"
-            console.log('right');
+            //console.log('right');
             break;
         case 40:
             if (direction != "up")
                 direction = "down"
-            console.log('down');
+            //console.log('down');
             break;
         case 80:
-            togglePause();
+            if (gameInProgress)
+                togglePause();
             break;
     }
 });
