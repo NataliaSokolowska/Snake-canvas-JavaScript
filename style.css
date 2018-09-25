@@ -1,13 +1,15 @@
 body {
-    margin: 0;
+    margin: 20px;
     padding: 0;
 }
 
-.name-section {
+.game-main-section {
     display: flex;
-    flex-direction: column;
-    justify-content: content-between;
+    justify-content: space-around;
     align-items: center;
+}
+
+.name-section {
     font-size: 1.6rem;
     letter-spacing: 0.5rem;
 }
@@ -16,13 +18,6 @@ body {
     font-size: 2rem;
     color: #84b71c;
     font-weight: bold;
-}
-
-.game-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px auto;
 }
 
 .game-over {
@@ -55,6 +50,6 @@ button {
 .try-again {
     position: absolute;
     top: 45%;
-    left: calc(50% - 80px);
+    left: 55%;
     z-index: 1;
 }
