@@ -148,7 +148,7 @@ function togglePause() {
         ctx.fillStyle = '#5b627e';
         ctx.fillRect(0, 0, cw, ch);
         ctx.fillStyle = "#84b71c";
-        ctx.font = "40px Georgia";
+        ctx.font = "30px Courier, serif";
         ctx.fillText("Click P to return to the game", cw / 2 - 250, ch / 2);
         pauseGame();
     }
@@ -185,19 +185,19 @@ function welcomeGame() {
     drawGround();
     setTitle('Snake Game');
     ctx.fillStyle = "#84b71c";
-    ctx.font = "40px Georgia";
+    ctx.font = "30px Courier, serif";
     ctx.fillText("Click Enter to Start the game.", cw / 2 - 250, ch / 3);
     ctx.fillStyle = "#84b71c";
-    ctx.font = "30px Georgia";
+    ctx.font = "30px Courier, serif";
     ctx.fillText("Up - Arrows up", cw / 2 - 140, ch / 2);
     ctx.fillStyle = "#84b71c";
-    ctx.font = "30px Georgia";
+    ctx.font = "30px Courier, serif";
     ctx.fillText("Down - Arrows down", cw / 2 - 140, ch / 2 + 80);
     ctx.fillStyle = "#84b71c";
-    ctx.font = "30px Georgia";
+    ctx.font = "30px Courier, serif";
     ctx.fillText("Right - Arrows right", cw / 2 - 140, ch / 2 + 160);
     ctx.fillStyle = "#84b71c";
-    ctx.font = "30px Georgia";
+    ctx.font = "30px Courier, serif";
     ctx.fillText("Left - Arrows left", cw / 2 - 140, ch / 2 + 240);
     //gameOverMenu = document.getElementById('gameOverMenu');
     againBtn = document.getElementById('againBtn');
@@ -221,7 +221,7 @@ function endGame() {
     ctx.fillStyle = ctx.fillStyle = "rgba(91, 98, 126, 0.9)";
     ctx.fillRect(0, 0, cw, ch);
     ctx.fillStyle = "#84b71c";
-    ctx.font = "40px Georgia";
+    ctx.font = "40px Courier, serif";
     ctx.fillText("End game", cw / 2 - 80, ch / 2 - 20);
     endMusic.play();
     showGameOverBtn();

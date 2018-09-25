@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Bungee+Shade&subset=latin-ext');
+
 body {
     margin: 20px;
     padding: 0;
+    font-family: 'Bungee Shade', cursive;
 }
 
 .game-main-section {
@@ -40,11 +43,13 @@ body {
 
 button {
     width: 200px;
-    height: 80px;
+    height: 100px;
     font-size: 2rem;
     color: #ffffff;
     background-color: #84b71c;
-    letter-spacing: 5px;
+    letter-spacing: 2px;
+    font-family: 'Bungee Shade', cursive;
+    padding: 5px;
 }
 
 .try-again {
