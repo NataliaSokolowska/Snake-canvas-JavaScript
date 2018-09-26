@@ -10,7 +10,11 @@ const ch = canvas.height;
 const box = 32;
 
 let appleImg = new Image();
+let bombsImg = new Image();
+let heartImg = new Image();
 appleImg.src = 'https://zapodaj.net/images/992de5e957a53.png';
+bombsImg.src = 'https://zapodaj.net/images/dac97a63d5b84.png';
+heartImg.src = 'https://zapodaj.net/images/d2abe168c897b.png';
 
 const dead = new Audio();
 const eat = new Audio();
@@ -31,9 +35,21 @@ let food = {
     y: Math.floor(Math.random() * 19) * box
 }
 
+let heart = {
+    x: Math.floor(Math.random() * 19) * box,
+    y: Math.floor(Math.random() * 19) * box
+}
+
+let bombs = {
+    x: Math.floor(Math.random() * 19) * box,
+    y: Math.floor(Math.random() * 19) * box
+}
+
 let direction;
 const scoreSpan = document.getElementById('scoreSpan');
+const livesSpan = document.getElementById('livesSpan');
 let score = 0;
+let lives = 3;
 
 let gamePaused = false;
 let gameInProgress = false;
@@ -41,13 +57,17 @@ let gameInProgress = false;
 let gameInterval = window.setInterval(function () {});
 
 function draw() {
-
     drawGround();
 
     ctx.drawImage(appleImg, food.x, food.y, box, box);
+    ctx.drawImage(heartImg, heart.x, heart.y, box, box);
+    ctx.drawImage(bombsImg, bombs.x, bombs.y, box, box);
 
     drawSnake();
+    moveSnake();
+}
 
+function moveSnake() {
     //old Head Snake position
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
@@ -68,6 +88,24 @@ function draw() {
             x: Math.floor(Math.random() * 19) * box,
             y: Math.floor(Math.random() * 19) * box
         }
+    } else if (snakeX == heart.x && snakeY == heart.y) {
+        snake.pop();
+        lives++;
+        livesSpan.textContent = lives;
+        eat.play();
+        heart = {
+            x: Math.floor(Math.random() * 19) * box,
+            y: Math.floor(Math.random() * 19) * box
+        }
+    } else if (snakeX == bombs.x && snakeY == bombs.y) {
+        snake.pop();
+        lives--;
+        livesSpan.textContent = lives;
+        eat.play();
+        bombs = {
+            x: Math.floor(Math.random() * 19) * box,
+            y: Math.floor(Math.random() * 19) * box
+        }
     } else {
         snake.pop();
     }
@@ -76,12 +114,40 @@ function draw() {
         x: snakeX,
         y: snakeY
     }
-    if (snakeX < 0 || snakeX > 19 * box || snakeY < 0 || snakeY > 19 * box || collision(newHead, snake)) {
+    if (snakeX < 0 ||
+        snakeX > 19 * box ||
+        snakeY < 0 ||
+        snakeY > 19 * box ||
+        (collision(newHead, snake) && lives > 0)
+    ) {
+        lives--;
+        livesSpan.textContent = lives;
+        resetGame();
+        return;
+    } else if (snakeX < 0 ||
+        snakeX > 19 * box ||
+        snakeY < 0 ||
+        snakeY > 19 * box ||
+        (collision(newHead, snake) || lives === 0)
+    ) {
         dead.play();
         endGame();
     }
 
     snake.unshift(newHead);
+}
+
+function resetGame() {
+    //reset snake
+    snake[0] = {
+        x: 9 * box,
+        y: 10 * box
+    }
+
+    snake.length = 1;
+    direction = '';
+
+    moveSnake();
 }
 
 function drawGround() {
@@ -108,7 +174,16 @@ function drawGround() {
 
 function drawSnake() {
     for (let i = 0; i < snake.length; i++) {
-        ctx.fillStyle = (i == 0) ? "#84b71c" : 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')';;
+        ctx.fillStyle =
+            i == 0 ?
+            "#84b71c" :
+            "rgb(" +
+            Math.floor(Math.random() * 256) +
+            "," +
+            Math.floor(Math.random() * 256) +
+            "," +
+            Math.floor(Math.random() * 256) +
+            ")";
         ctx.fillRect(snake[i].x, snake[i].y, box, box);
     }
 }
@@ -178,7 +253,6 @@ function initGame() {
     } else {
         return;
     }
-
 }
 
 function welcomeGame() {
@@ -210,7 +284,6 @@ function welcomeGame() {
         y: 10 * box
     }
     snake.length = 1;
-
 }
 
 function endGame() {
@@ -227,7 +300,6 @@ function endGame() {
     showGameOverBtn();
     againBtn.textContent = 'Try again';
     clearInterval(gameInterval);
-
 }
 
 document.addEventListener('keydown', function (e) {
