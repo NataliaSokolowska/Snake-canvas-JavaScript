@@ -232,6 +232,7 @@ function togglePause() {
 function resumeGame() {
     if (gamePaused) {
         gamePaused = false;
+        gameInProgress = false;
         initGame();
     }
 }
@@ -259,20 +260,33 @@ function welcomeGame() {
     drawGround();
     setTitle('Snake Game');
     ctx.fillStyle = "#84b71c";
-    ctx.font = "30px Courier, serif";
-    ctx.fillText("Click Enter to Start the game.", cw / 2 - 250, ch / 3);
+    ctx.font = "40px Courier, serif";
+    ctx.fillText("Enter ------ Start", cw / 2 - 200, ch / 10);
     ctx.fillStyle = "#84b71c";
-    ctx.font = "30px Courier, serif";
-    ctx.fillText("Up - Arrows up", cw / 2 - 140, ch / 2);
+    ctx.font = "20px Courier, serif";
+    ctx.fillText("P ----- Pause/resume", cw / 2 - 140, ch / 4.9);
     ctx.fillStyle = "#84b71c";
-    ctx.font = "30px Courier, serif";
-    ctx.fillText("Down - Arrows down", cw / 2 - 140, ch / 2 + 80);
+    ctx.font = "20px Courier, serif";
+    ctx.fillText("Up ----- Arrows up", cw / 2 - 140, ch / 3.3);
     ctx.fillStyle = "#84b71c";
-    ctx.font = "30px Courier, serif";
-    ctx.fillText("Right - Arrows right", cw / 2 - 140, ch / 2 + 160);
+    ctx.font = "20px Courier, serifa";
+    ctx.fillText("Down----- Arrows down", cw / 2 - 140, ch / 2.4);
     ctx.fillStyle = "#84b71c";
-    ctx.font = "30px Courier, serif";
-    ctx.fillText("Left - Arrows left", cw / 2 - 140, ch / 2 + 240);
+    ctx.font = "20px Courier, serif";
+    ctx.fillText("Right ----- Arrows right", cw / 2 - 140, ch / 1.95);
+    ctx.fillStyle = "#84b71c";
+    ctx.font = "20px Courier, serif";
+    ctx.fillText("Left ----- Arrows left", cw / 2 - 140, ch / 1.6);
+
+    ctx.fillStyle = "#84b71c";
+    ctx.font = "20px Courier, serif";
+    ctx.fillText("Eat apple ----- + Score", cw / 2 - 140, ch / 1.3);
+    ctx.fillStyle = "#84b71c";
+    ctx.font = "20px Courier, serif";
+    ctx.fillText("Eat heart ----- + Lives", cw / 2 - 140, ch / 1.2);
+    ctx.fillStyle = "#84b71c";
+    ctx.font = "20px Courier, serifa";
+    ctx.fillText("Eat bombs ----- - Lives", cw / 2 - 140, ch / 1.12);
     //gameOverMenu = document.getElementById('gameOverMenu');
     againBtn = document.getElementById('againBtn');
 
@@ -284,6 +298,7 @@ function welcomeGame() {
         y: 10 * box
     }
     snake.length = 1;
+
 }
 
 function endGame() {
