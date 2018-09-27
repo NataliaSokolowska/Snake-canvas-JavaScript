@@ -162,14 +162,8 @@ function moveSnake() {
 
 function resetGame() {
     //reset snake
-    snake[0] = {
-        x: 9 * box,
-        y: 10 * box
-    }
-
-    snake.length = 1;
+    resetSnake();
     direction = '';
-
     moveSnake();
 }
 
@@ -211,7 +205,6 @@ function drawSnake() {
     }
 }
 
-
 function collision(head, array) {
     for (let i = 0; i < array.length; i++) {
         if (head.x == array[i].x && head.y == array[i].y) {
@@ -222,11 +215,11 @@ function collision(head, array) {
 }
 
 function showGameOverBtn() {
-    gameOverMenu = document.getElementById('gameOverMenu');
-    againBtn = document.getElementById('againBtn');
+    let gameOverMenu = document.getElementById("gameOverMenu");
+    let againBtn = document.getElementById("againBtn");
 
-    gameOverMenu.className = 'active';
-    againBtn.addEventListener('click', welcomeGame);
+    gameOverMenu.className = "active";
+    againBtn.addEventListener("click", welcomeGame);
 }
 
 function setTitle(text) {
@@ -237,6 +230,8 @@ function setTitle(text) {
 function resetScore() {
     score = 0;
     scoreSpan.textContent = score;
+    lives = 3;
+    livesSpan.textContent = lives;
 }
 
 function togglePause() {
@@ -282,6 +277,7 @@ function initGame() {
 function welcomeGame() {
     drawGround();
     setTitle('Snake Game');
+
     ctx.fillStyle = "#84b71c";
     ctx.font = "40px Courier, serif";
     ctx.fillText("Enter ------ Start", cw / 2 - 200, ch / 10);
@@ -313,14 +309,16 @@ function welcomeGame() {
     ctx.fillText("Eat bombs ----- - Lives", cw / 2 - 140, ch / 1.12);
     //gameOverMenu = document.getElementById('gameOverMenu');
     againBtn = document.getElementById('againBtn');
-
     gameOverMenu.className = 'game-over';
 
-    //reset snake
+    resetSnake();
+}
+
+function resetSnake() {
     snake[0] = {
         x: 9 * box,
         y: 10 * box
-    }
+    };
     snake.length = 1;
 }
 
