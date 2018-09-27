@@ -45,6 +45,8 @@ let bombs = {
     y: Math.floor(Math.random() * 19) * box
 }
 
+let heartIterator = 0;
+
 let direction;
 const scoreSpan = document.getElementById('scoreSpan');
 const livesSpan = document.getElementById('livesSpan');
@@ -60,7 +62,15 @@ function draw() {
     drawGround();
 
     ctx.drawImage(appleImg, food.x, food.y, box, box);
-    ctx.drawImage(heartImg, heart.x, heart.y, box, box);
+
+    if (heart.x >= 0 &&
+        heart.y >= 0 &&
+        heart.x !== null &&
+        heart.y !== null) {
+        console.log(heart, heartIterator);
+        ctx.drawImage(heartImg, heart.x, heart.y, box, box);
+    }
+
     ctx.drawImage(bombsImg, bombs.x, bombs.y, box, box);
 
     drawSnake();
@@ -71,6 +81,8 @@ function moveSnake() {
     //old Head Snake position
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
+
+    heartIterator += 200;
 
     //direction head snake during key movie
     if (direction == "left") snakeX -= box;
@@ -89,13 +101,14 @@ function moveSnake() {
             y: Math.floor(Math.random() * 19) * box
         }
     } else if (snakeX == heart.x && snakeY == heart.y) {
+        heartIterator = 0;
         snake.pop();
         lives++;
         livesSpan.textContent = lives;
         eat.play();
         heart = {
-            x: Math.floor(Math.random() * 19) * box,
-            y: Math.floor(Math.random() * 19) * box
+            x: -1,
+            y: -1
         }
     } else if (snakeX == bombs.x && snakeY == bombs.y) {
         snake.pop();
@@ -132,6 +145,16 @@ function moveSnake() {
     ) {
         dead.play();
         endGame();
+    }
+
+    if (heart.x === -1 &&
+        heart.y === -1 &&
+        heartIterator >= 20000) {
+        heart = {
+            x: Math.floor(Math.random() * 19) * box,
+            y: Math.floor(Math.random() * 19) * box
+        };
+        heartIterator = 0;
     }
 
     snake.unshift(newHead);
@@ -263,6 +286,7 @@ function welcomeGame() {
     ctx.font = "40px Courier, serif";
     ctx.fillText("Enter ------ Start", cw / 2 - 200, ch / 10);
     ctx.fillStyle = "#84b71c";
+
     ctx.font = "20px Courier, serif";
     ctx.fillText("P ----- Pause/resume", cw / 2 - 140, ch / 4.9);
     ctx.fillStyle = "#84b71c";
@@ -270,15 +294,15 @@ function welcomeGame() {
     ctx.fillText("Up ----- Arrows up", cw / 2 - 140, ch / 3.3);
     ctx.fillStyle = "#84b71c";
     ctx.font = "20px Courier, serifa";
-    ctx.fillText("Down----- Arrows down", cw / 2 - 140, ch / 2.4);
+    ctx.fillText("Down ----- Arrows down", cw / 2 - 140, ch / 2.4);
     ctx.fillStyle = "#84b71c";
     ctx.font = "20px Courier, serif";
     ctx.fillText("Right ----- Arrows right", cw / 2 - 140, ch / 1.95);
     ctx.fillStyle = "#84b71c";
     ctx.font = "20px Courier, serif";
     ctx.fillText("Left ----- Arrows left", cw / 2 - 140, ch / 1.6);
-
     ctx.fillStyle = "#84b71c";
+
     ctx.font = "20px Courier, serif";
     ctx.fillText("Eat apple ----- + Score", cw / 2 - 140, ch / 1.3);
     ctx.fillStyle = "#84b71c";
@@ -298,7 +322,6 @@ function welcomeGame() {
         y: 10 * box
     }
     snake.length = 1;
-
 }
 
 function endGame() {
