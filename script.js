@@ -12,9 +12,9 @@ const box = 32;
 let appleImg = new Image();
 let bombsImg = new Image();
 let heartImg = new Image();
-appleImg.src = 'https://zapodaj.net/images/992de5e957a53.png';
-bombsImg.src = 'https://zapodaj.net/images/dac97a63d5b84.png';
-heartImg.src = 'https://zapodaj.net/images/d2abe168c897b.png';
+appleImg.src = 'img/apple.png';
+bombsImg.src = 'img/bomb.png';
+heartImg.src = 'img/heart.png';
 
 const dead = new Audio();
 const eat = new Audio();
